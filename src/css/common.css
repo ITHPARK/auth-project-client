@@ -1,0 +1,21 @@
+.header {padding: 0 50px; width: 100%; height: 60px; display: flex; justify-content: space-between; align-items: center; position: fixed; left: 0; top: 0; background-color: #3d35f9;}
+.header .logo a {font-size: 24px; color: #fff;}
+.header .sub_nav {display: flex; gap: 15px;}
+.header .sub_nav a, .header .sub_nav button {font-size: 16px; color: #fff; line-height: 1; letter-spacing: -0.03em; cursor: pointer; }
+
+
+section {padding-top: 60px;}
+section .main {padding-top: 100px; width: 100%; display: flex; flex-direction: column; justify-content: center;}
+section .main p {text-align: center;}
+section .main .user_name {color: #3d35f9;}
+
+
+.my_page { margin: 70px auto 0; width: 100%; max-width: 720px;}
+.my_page h2 {margin-bottom: 30px; font-size: 28px; font-weight: 600; color: #121214; }
+.my_page .info_list .info_list_row {padding: 20px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e5e8;}
+.my_page .info_list .info_list_row span { font-weight: 600; color: #121214; line-height: 2;}
+.my_page .info_list .info_list_row p{color: #63656d;}
+
+
+.my_page_button_wrap {margin-top: 30px; display: flex; justify-content: end; }
+.my_page_button_wrap button {padding: 8px 0; width: 100% ; max-width: 120px; color: #fff; background-color: #3d35f9; cursor: pointer;}
