@@ -11,7 +11,7 @@ import axiosInstance  from '../api/axiosInstance';
 const Login = () => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
-  const [ setCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
+  const [cookies, setCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
 
   const {setLoggedState} = useLoggedState();
   const {setUser} = useLoggedUser();
@@ -60,7 +60,7 @@ const Login = () => {
             sameSite: 'Strict' : 쿠키가 크로스 사이트 요청과 함께 전송되지 않도록 설정.
         */
           // 쿠키의 유효기간 설정
-          const options = { path: '/', maxAge: 3600 }; // 1시간 동안 유효
+        const options = { path: '/', maxAge: 3600 }; // 1시간 동안 유효
 
         setCookie('accessToken', res.data.accessToken, options);
         setCookie('refreshToken', res.data.refreshToken, options);
@@ -70,6 +70,7 @@ const Login = () => {
         setUser(res.data.userid);
 
         navigate('/');
+
       }else if (!userId){
         alert("아이디를 입력하세요.");
       }else if(!userPw) {
@@ -86,11 +87,9 @@ const Login = () => {
         } else {
             alert(data.message || "로그인 중 오류가 발생했습니다.");
         }
-      } else {
-          // 응답이 없는 경우 (네트워크 오류 등)
-          alert("로그인 중 오류가 발생했습니다.");
       }
       console.log(error);
+      console.log(3123125435345 );
     }
   }
 

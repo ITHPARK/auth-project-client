@@ -31,7 +31,7 @@ function App() {
   
   useEffect(() => {
     //로그아웃을 눌러도 브라우저에서 쿠키 삭제를 하지 않고 있음.
-    console.log(cookies.accessToken);
+    
     if (cookies.accessToken) {
       setLoggedState(true);
       setUser(cookies.userid);

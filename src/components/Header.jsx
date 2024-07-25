@@ -9,7 +9,7 @@ const Header = () => {
 
   const {loggedState, setLoggedState} = useLoggedState();
   const {setUser} = useLoggedUser();
-  const [ removeCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
 
   const navigate = useNavigate();
   
