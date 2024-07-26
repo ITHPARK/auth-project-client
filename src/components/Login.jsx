@@ -39,19 +39,12 @@ const Login = () => {
 
     try {
       if(userId && userPw){
-
         //url에 작성되는 쿼리문은 보안이슈가 있어서 GET 방식을 로그인에서는 사용하지 않는다. 또 한 기록이 캐싱이 되어 기록된 요청정보를 조회할 수 있다.
         //캐싱이 안되고 json정보를 body에 담아 감추어 전달하기 때문에 비교적 보안에 용이하다.
         //로그인은 서버상 로그인 상태를 변경하는것이기 때문에 POST메서드를 이용하는것이 적절하다.
 
         //withCredentials:  브라우저에서 HTTP 요청을 할 때 쿠키, 인증 헤더 및 TLS 클라이언트 인증 정보를 함께 전송할 수 있도록 설정하는 옵션
         const res = await axiosInstance.post('/users/login', userInfo, { withCredentials: true });
-
-        console.log(res.data); // res.data에서 accessToken에 접근
-
-      
-        //서버에 전송한 응답 메세지 츨력
-        alert(res.data.message);
 
         // 토큰을 쿠키에 저장
         /*
@@ -61,16 +54,18 @@ const Login = () => {
         */
           // 쿠키의 유효기간 설정
         const options = { path: '/', maxAge: 3600 }; // 1시간 동안 유효
+        const {status} = res;
 
-        setCookie('accessToken', res.data.accessToken, options);
-        setCookie('refreshToken', res.data.refreshToken, options);
-        setCookie('userid', res.data.userid, options);
-        
-        setLoggedState(true);
-        setUser(res.data.userid);
-
-        navigate('/');
-
+        if(status === 200) {
+          //서버에 전송한 응답 메세지 츨력
+          alert(res.data.message);
+          setCookie('accessToken', res.data.accessToken, options);
+          setCookie('refreshToken', res.data.refreshToken, options);
+          setCookie('userid', res.data.userid, options);
+          setLoggedState(true);
+          setUser(res.data.userid);
+          navigate('/');
+        }
       }else if (!userId){
         alert("아이디를 입력하세요.");
       }else if(!userPw) {
@@ -89,7 +84,6 @@ const Login = () => {
         }
       }
       console.log(error);
-      console.log(3123125435345 );
     }
   }
 

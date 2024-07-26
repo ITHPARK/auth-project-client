@@ -9,7 +9,7 @@ import MainPage from './components/MainPage';
 import MyPage from './components/MyPage';
 import { useCookies } from 'react-cookie';
 import {useLoggedState, useLoggedUser} from './store/store';
-import useRefreshToken from './hooks/useRefreshToken';
+
 
 
 const DefaultLayout = () => {
@@ -26,8 +26,6 @@ function App() {
   const [cookies] = useCookies(['accessToken', 'refreshToken', 'userid']);
   const {setLoggedState} = useLoggedState();
   const {setUser} = useLoggedUser();
-  const refresh = useRefreshToken();
-
   
   useEffect(() => {
     //로그아웃을 눌러도 브라우저에서 쿠키 삭제를 하지 않고 있음.
@@ -36,9 +34,7 @@ function App() {
       setLoggedState(true);
       setUser(cookies.userid);
     } else {
-      if(!cookies.accessToken && cookies.refreshToken) {
-        refresh();
-      }else {
+      if(!cookies.accessToken && !cookies.refreshToken) {
         setLoggedState(false);
       }
     }

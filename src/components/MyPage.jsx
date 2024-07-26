@@ -1,23 +1,53 @@
 import React, {useState, useEffect} from 'react';
 import {fetchUserData} from '../api/request'
 import { useCookies } from 'react-cookie';
-import { useLoggedUser} from '../store/store';
+import {useLoggedUser, useLoggedState} from '../store/store';
 import axiosInstance  from '../api/axiosInstance';
+import { useNavigate } from "react-router-dom";
+
 
 
 const MyPage = () => {
 
-    const [cookies,] = useCookies(['accessToken']);
-    const {userid} = useLoggedUser();
+    const {setLoggedState} = useLoggedState();
+    const {userid, setUser} = useLoggedUser();
     const [userInfo, setUserInfo] = useState();
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
 
-    const handleClickDelete = async() => {
+    const navigate = useNavigate();
+
+    const handleClickDelete = () => {
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("회원탈퇴를 하시겠습니까?")) {
+            reqDelete();
+        }else {
+            return false
+        }
+    }
+
+    const reqDelete = async() => {
         try {
             const response  = await axiosInstance.delete(`/users/${userid}`);
             console.log(response.data);
+
+            const {status} = response;
+
+            if(status === 200) {
+                alert("회원탈퇴가 성공하였습니다.");
+
+                removeCookie('accessToken', { path: '/',  });
+                removeCookie('refreshToken', { path: '/',  });
+                removeCookie('userid', { path: '/',  });
+                setLoggedState(false)
+                setUser("");
+          
+                alert("로그아웃 되었습니다.");
+          
+                navigate("/")
+            }
         }catch(error) {
             console.error('Error deleting user:', error);
-        }
+        }   
     }
 
     useEffect(() => {
