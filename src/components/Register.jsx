@@ -4,11 +4,14 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
   const [confirmPw, setConfirmPw] = useState("");
   const [checkPw, setCheckPw] = useState(false);
+
+  const navigate = useNavigate();
 
 
   const [regInfo, setRegInfo] = useState({
@@ -68,8 +71,11 @@ const Register = () => {
               email: regInfo.userEmail,
             });
 
-            if(res.data) {
+            const {status} = res;
+
+            if(status === 200) {
               alert("가입이 완료되었습니다!");
+              navigate("/login");
             }
 
           }else {
