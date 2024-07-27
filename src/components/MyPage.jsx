@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
 
-    const {setLoggedState} = useLoggedState();
+    const {loggedState, setLoggedState} = useLoggedState();
     const {userid, setUser} = useLoggedUser();
     const [userInfo, setUserInfo] = useState();
     const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'refreshToken', 'userid']);
@@ -49,6 +49,14 @@ const MyPage = () => {
             console.error('Error deleting user:', error);
         }   
     }
+
+
+    useEffect(() => {
+        if(!loggedState) {
+            navigate("/");
+        }
+    },[]);
+
 
     useEffect(() => {
         const getUserInfo = async() => {

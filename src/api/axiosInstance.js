@@ -5,8 +5,8 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
-  // baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: "http://localhost:4000",
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
 });
 
